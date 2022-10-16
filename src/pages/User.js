@@ -13,7 +13,7 @@ function User() {
 
   useEffect(() => {
     loderFunction();
-  }, []);
+  }, [dispatch, params]);
 
   const loderFunction = async () => {
     dispatch({ type: "SET_LODING" });

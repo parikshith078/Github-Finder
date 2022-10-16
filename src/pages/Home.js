@@ -1,8 +1,14 @@
 import React from "react";
 import UserResult from "../components/users/UserResult";
+import UserSearch from "../components/users/UserSearch";
 
 function Home() {
-  return <UserResult />;
+  return (
+    <>
+      <UserSearch />
+      <UserResult />
+    </>
+  );
 }
 
 export default Home;

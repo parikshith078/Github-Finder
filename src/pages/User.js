@@ -4,17 +4,24 @@ import GithubContext from "../context/GithubContext";
 import { FaCodepen, FaStore, FaUserFriends, FaUsers } from "react-icons/fa";
 import Spinner from "../components/shared/Spinner";
 import RepoList from "../components/repo/RepoList";
+import { getUser, getRepos } from "../context/GithubActions";
 
 function User() {
-  const { getUser, singleUser, getRepos, repos, loding } =
-    useContext(GithubContext);
+  const { singleUser, repos, loding, dispatch } = useContext(GithubContext);
 
   const params = useParams();
 
   useEffect(() => {
-    getUser(params.login);
-    getRepos(params.login);
+    loderFunction();
   }, []);
+
+  const loderFunction = async () => {
+    dispatch({ type: "SET_LODING" });
+    const data = await getUser(params.login);
+    const repoData = await getRepos(params.login);
+    dispatch({ type: "GET_USER", payload: data });
+    dispatch({ type: "GET_REPOS", payload: repoData });
+  };
 
   if (loding) return <Spinner />;
 
